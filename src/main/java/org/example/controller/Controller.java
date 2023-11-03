@@ -11,12 +11,14 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 public class Controller {
+    private static Controller controller;
     private Model model;
     private MyFrame frame;
     private MyPanel panel;
     private Point2D [] pd;
     private MyShape shape;
     public Controller() {
+
         model = new Model();
         shape = new MyShape(new Rectangle2D.Double());
         shape.setFb(new NoFill());
@@ -38,6 +40,10 @@ public class Controller {
     public void getPointTwo(Point2D p){
         pd[1] = p;
         model.changeShape(pd);
+    }
+    static public Controller getInstance(){
+     if(controller==null) controller=new Controller();
+     return controller;
     }
 
     public void draw(Graphics2D g2) {
