@@ -15,6 +15,14 @@ public class MyShape implements Cloneable{
     private FillBehavior fb;
     Cloneable cloneable;
 
+    public void setShape(RectangularShape shape) {
+        this.shape = shape;
+    }
+
+    public void setFrame(Point2D[] pd) {
+        shape.setFrameFromDiagonal(pd[0], pd[1]);
+    }
+
     public MyShape(RectangularShape shape) {
         this.shape = shape;
         color = Color.GRAY;
@@ -44,19 +52,12 @@ public class MyShape implements Cloneable{
         fb.serShape(shape);
         fb.setColor(color);
     }
-
-    public void setShape(RectangularShape shape) {
-        this.shape = shape;
-    }
-
-    public void setFrame(Point2D[] pd) {
-        shape.setFrameFromDiagonal(pd[0], pd[1]);
-    }
-
     void draw(Graphics2D g) {
         fb.draw(g);
-
+        fb.setColor(color);
+        fb.serShape(shape);
     }
+    @Override
     public MyShape clone(){
         MyShape clone=new MyShape();
         clone.shape= (RectangularShape) this.shape.clone();

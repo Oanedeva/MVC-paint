@@ -13,11 +13,18 @@ public class ActionDraw extends Controller {
     private MyShape shape;
     private Point2D[] p;
     private Model model;
-    public ActionDraw() {
-    }
-  /*  public ActionDraw(Model model){
+    public void poi(){
         shape=new MyShape();
-    }*/
+        p=new Point2D[2];
+    }
+    public void setSampleShape(MyShape shape){
+        this.sampleShape=sampleShape;
+    }
+   public void setShape(MyShape shape){this.shape=shape;}
+    public ActionDraw(Model model){
+        shape=new MyShape();
+        this.model=model;
+    }
      public void stretchShape(Point point){
         p[1] =(Point2D) point;
         shape.setFrame(p);
