@@ -1,7 +1,9 @@
 package org.example.controller;
 
+import org.example.controller.action.ActionDraw;
 import org.example.model.Model;
 import org.example.model.MyShape;
+import org.example.model.fill.Fill;
 import org.example.model.fill.NoFill;
 import org.example.view.MyFrame;
 import org.example.view.MyPanel;
@@ -12,12 +14,13 @@ import java.awt.geom.Rectangle2D;
 
 public class Controller {
     private static Controller controller;
+    private ActionDraw actionDraw;
     private Model model;
     private MyFrame frame;
     private MyPanel panel;
     private Point2D [] pd;
     private MyShape shape;
-    public Controller() {
+    protected Controller() {
 
         model = new Model();
         shape = new MyShape(new Rectangle2D.Double());
@@ -44,6 +47,15 @@ public class Controller {
     static public Controller getInstance(){
      if(controller==null) controller=new Controller();
      return controller;
+    }
+    public void mousePressed(Point point){
+        actionDraw.createShape(point);
+    }
+    public void mouseDragget(Point point){
+    actionDraw.stretchShape(point);
+    }
+    public Controller(ActionDraw actionDraw) {
+        this.actionDraw = actionDraw;
     }
 
     public void draw(Graphics2D g2) {

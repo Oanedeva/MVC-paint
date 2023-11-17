@@ -23,4 +23,7 @@ public class Model extends Observable {
     public void draw(Graphics2D g) {
         currentShape.draw(g);
     }
+
+    public void createCurrentShape(MyShape shape) {
+    }
 }
