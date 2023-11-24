@@ -27,7 +27,9 @@ public class Model extends Observable {
     }
 
     public void draw(Graphics2D g) {
-        currentShape.draw(g);
+        for (MyShape shape : shapeList) {
+            shape.draw(g);
+        }
     }
     @PostConstruct
     public void init(){shapeList=new ArrayList<>();}

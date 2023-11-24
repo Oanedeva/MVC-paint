@@ -41,6 +41,7 @@ public class Controller {
         shape = new MyShape(new Rectangle2D.Double());
         shape.setFb(new NoFill());
         model.setMyShape(shape);
+        actionDraw.setSampleShape(shape);
 
         model.addObserver(panel);
 

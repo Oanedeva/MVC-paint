@@ -23,7 +23,7 @@ public class ActionDraw extends Controller {
         p=new Point2D[2];
     }
     public void setSampleShape(MyShape shape){
-        this.sampleShape=sampleShape;
+        this.sampleShape=shape;
     }
 
     public void setShape(MyShape shape){this.shape=shape;}
