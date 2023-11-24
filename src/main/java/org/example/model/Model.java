@@ -1,11 +1,14 @@
 package org.example.model;
 
+import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
-
+@Component
 public class Model extends Observable {
     private MyShape currentShape;
     private List<MyShape> shapeList;
@@ -26,8 +29,8 @@ public class Model extends Observable {
     public void draw(Graphics2D g) {
         currentShape.draw(g);
     }
-
-    public void poi(){shapeList=new ArrayList<>();}
+    @PostConstruct
+    public void init(){shapeList=new ArrayList<>();}
 
     public void createCurrentShape(MyShape shape) {
         currentShape=shape;
