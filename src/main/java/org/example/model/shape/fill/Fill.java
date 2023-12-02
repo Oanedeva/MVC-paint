@@ -1,11 +1,11 @@
-package org.example.model.fill;
+package org.example.model.shape.fill;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.geom.RectangularShape;
+public class Fill implements FillBehavior {
 
-public class NoFill implements FillBehavior {
     private Color color;
     private RectangularShape shape;
 
@@ -18,12 +18,19 @@ public class NoFill implements FillBehavior {
     public void draw(Graphics2D g) {
         Paint paint = g.getPaint();
         g.setPaint(color);
-        g.draw(shape);
+        g.fill(shape);
         g.setPaint(paint);
     }
 
     @Override
     public void serShape(RectangularShape s) {
         shape = s;
+    }
+
+    @Override
+    public FillBehavior clone() {
+        Fill fill=new Fill();
+        fill.color=color;
+        return  fill;
     }
 }
