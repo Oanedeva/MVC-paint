@@ -12,6 +12,6 @@ public class BootClass {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
         context.register(BootClass.class);
         context.refresh();
-      //  context.getBean(Controller.class);
+     //   context.getBean(Controller.class);
     }
 }

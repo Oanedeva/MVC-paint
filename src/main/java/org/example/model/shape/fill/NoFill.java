@@ -1,10 +1,9 @@
-package org.example.model.shape.fill;
+package org.example.model.shape.factory.fill;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.geom.RectangularShape;
-
 public class NoFill implements FillBehavior {
     private Color color;
     private RectangularShape shape;
@@ -29,8 +28,8 @@ public class NoFill implements FillBehavior {
 
     @Override
     public FillBehavior clone() {
-        NoFill noFill=new NoFill();
-        noFill.color=color;
+        NoFill noFill = new NoFill();
+        noFill.color = color;
         return noFill;
     }
 }

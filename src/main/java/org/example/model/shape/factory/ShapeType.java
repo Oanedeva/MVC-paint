@@ -1,9 +1,7 @@
 package org.example.model.shape.factory;
 
-import org.example.controller.MenuController;
-import org.example.controller.MenuObserver;
 import org.example.model.MyShape;
-import org.example.model.shape.fill.FillBehavior;
+import org.example.model.shape.factory.fill.FillBehavior;
 
 import java.awt.*;
 import java.awt.geom.*;

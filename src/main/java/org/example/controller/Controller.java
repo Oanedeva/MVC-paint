@@ -1,56 +1,76 @@
 package org.example.controller;
 
 import org.example.controller.action.ActionDraw;
+import org.example.controller.action.MyAction;
+import org.example.controller.menu.MenuController;
+import org.example.controller.menu.MenuObserver;
+import org.example.controller.menu.MenuSubscriber;
 import org.example.model.Model;
 import org.example.model.MyShape;
 import org.example.model.shape.factory.ShapeType;
-import org.example.model.shape.fill.Fill;
-import org.example.model.shape.fill.FillBehavior;
-import org.example.model.shape.fill.NoFill;
+import org.example.model.shape.factory.fill.FillBehavior;
+import org.example.model.shape.factory.fill.NoFill;
+import org.example.undoredo.UndoMachine;
+import org.example.undoredo.UndoRedoState;
 import org.example.view.MyFrame;
 import org.example.view.MyPanel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 
-@org.springframework.stereotype.Controller
-public class Controller implements MenuSubscribe{
-    private ActionDraw actionDraw;
+@Component
+public class Controller implements MenuSubscriber {
     private Model model;
     private MyFrame frame;
     private MyPanel panel;
     private Point2D [] pd;
     private MyShape shape;
+    private ActionDraw actionDraw;
     private MenuController menuController;
+    private MenuObserver menuObserver;
+    private UndoMachine undoMachine;
 
-   /* public Controller() {
+    //private MyShape shape1;
 
-        model = new Model();
-
-        shape = new MyShape(new Rectangle2D.Double());
-        shape.setFb(new NoFill());
-        model.setMyShape(shape);
-
-        model.addObserver(panel);
-
-        pd = new Point2D[2];
-    }*/
     @PostConstruct
-    public void init(){
-        shape = ShapeType.RECTANGULAR.createShape(Color.black,new NoFill());
-        /*shape.setFb(new NoFill());*/
-        //shape=ShapeType.ELLIPSE.createShape(Color.black,new NoFill());
-
-        model.setMyShape(shape);
+    public void init() {
         actionDraw.setSampleShape(shape);
+        actionDraw.setShape(shape);
         model.addObserver(panel);
-        MenuController menuController=new MenuController();
-        frame.setJMenuBar(menuController.getMenuBar());
+        frame.setPanel(panel);
+        frame.setJMenuBar(menuController.getMenu());
+        frame.revalidate();
+        menuObserver.subscribe(this);
+        menuObserver.notifyAllSubscribers();
         pd = new Point2D[2];
-       // menuController.setController(this);
+    }
+    public void getPointOne(Point2D p){
+        pd[0] = p;
+    }
+    public void getPointTwo(Point2D p){
+        pd[1] = p;
+        model.changeShape(pd);
+    }
+
+    public void draw(Graphics2D g2) {
+        model.setMyShape(shape);
+        model.draw(g2);
+    }
+
+    public void mousePressed(Point point){
+        actionDraw.createShape(point);
+        //Дописать
+        //undoMachine.add(...);
+        //Вызов метода updateUndoRedoButtons делать в контроллере на событие
+        //нажатия мыши (mousePressed) и на события нажатия кнопки (actionListener
+        //кнопок undo и redo)
+    }
+
+    public void mouseDragged(Point point){
+        actionDraw.stretchShape(point);
     }
 
     @Autowired
@@ -58,29 +78,26 @@ public class Controller implements MenuSubscribe{
         this.model = model;
     }
     @Autowired
-    public void setPanel(MyPanel panel) {
-        this.panel = panel;
-    }
-    @Autowired
     public void setFrame(MyFrame frame) {
         this.frame = frame;
+    }
+    @Autowired
+    public void setPanel(MyPanel panel) {
+        this.panel = panel;
     }
     @Autowired
     public void setActionDraw(ActionDraw actionDraw) {
         this.actionDraw = actionDraw;
     }
-  //  @Autowired
-  //  public void setMenuController(MenuController menuController){this.menuController=menuController;}
 
-    public void mousePressed(Point point){
-        actionDraw.createShape(point);
-    }
-    public void mouseDragget(Point point){
-    actionDraw.stretchShape(point);
+    @Autowired
+    public void setMenuController(MenuController menuController) {
+        this.menuController = menuController;
     }
 
-    public void draw(Graphics2D g2) {
-        model.draw(g2);
+    @Autowired
+    public void setMenuObserver(MenuObserver menuObserver) {
+        this.menuObserver = menuObserver;
     }
 
     @Override
@@ -91,5 +108,14 @@ public class Controller implements MenuSubscribe{
         shape = selectedShape.createShape(selectedColor, selectedFill);
         actionDraw.setSampleShape(shape);
 
+        model.updateShape();
+
+//        ShapeType selectedShape1 = menuController.getSelectedShape1();
+//        Color selectedColor1 = menuController.getSelectedColor1();
+//        FillBehavior selectedFill1 = menuController.getSelectedFill1();
+//        shape1 = selectedShape1.createShape(selectedColor1, selectedFill1);
+//        actionDraw.setSampleShape(shape1);
+//
+//        model.updateShape();
     }
 }

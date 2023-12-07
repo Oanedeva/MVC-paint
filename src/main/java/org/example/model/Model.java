@@ -8,12 +8,15 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+
 @Component
 public class Model extends Observable {
     private MyShape currentShape;
-    private List<MyShape> shapeList;
 
-    public Model() {
+    private List<MyShape> shapeList;
+    @PostConstruct
+    public void init() {
+        shapeList = new ArrayList<>();
     }
 
     public void setMyShape(MyShape myShape) {
@@ -26,17 +29,26 @@ public class Model extends Observable {
         this.notifyObservers();
     }
 
+    public void updateShape() {
+        this.setChanged();
+        this.notifyObservers();
+    }
+
     public void draw(Graphics2D g) {
         for (MyShape shape : shapeList) {
             shape.draw(g);
         }
     }
-    @PostConstruct
-    public void init(){shapeList=new ArrayList<>();}
 
     public void createCurrentShape(MyShape shape) {
-        currentShape=shape;
+        currentShape = shape;
         shapeList.add(currentShape);
+        setChanged();
+        notifyObservers();
+    }
+
+    public void removeShape() {
+        shapeList.remove(shapeList.size() - 1);
         setChanged();
         notifyObservers();
     }

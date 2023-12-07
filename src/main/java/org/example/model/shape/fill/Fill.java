@@ -1,11 +1,10 @@
-package org.example.model.shape.fill;
+package org.example.model.shape.factory.fill;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.geom.RectangularShape;
-public class Fill implements FillBehavior {
-
+public class Fill implements FillBehavior, Cloneable {
     private Color color;
     private RectangularShape shape;
 
@@ -29,8 +28,8 @@ public class Fill implements FillBehavior {
 
     @Override
     public FillBehavior clone() {
-        Fill fill=new Fill();
-        fill.color=color;
-        return  fill;
+        Fill fill = new Fill();
+        fill.color = color;
+        return fill;
     }
 }
