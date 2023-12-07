@@ -109,13 +109,5 @@ public class Controller implements MenuSubscriber {
         actionDraw.setSampleShape(shape);
 
         model.updateShape();
-
-//        ShapeType selectedShape1 = menuController.getSelectedShape1();
-//        Color selectedColor1 = menuController.getSelectedColor1();
-//        FillBehavior selectedFill1 = menuController.getSelectedFill1();
-//        shape1 = selectedShape1.createShape(selectedColor1, selectedFill1);
-//        actionDraw.setSampleShape(shape1);
-//
-//        model.updateShape();
     }
 }
