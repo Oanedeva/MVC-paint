@@ -13,7 +13,7 @@ public class MyShape implements Cloneable{
     private Color color;
     private RectangularShape shape;
 
-    private FillBehavior fb;
+    private FillBehavior fillBehavior;
     Cloneable cloneable;
 
     public void setShape(RectangularShape shape) {
@@ -31,42 +31,42 @@ public class MyShape implements Cloneable{
     public MyShape(RectangularShape shape) {
         this.shape = shape;
         color = Color.GRAY;
-        fb = new Fill();
-        fb.setColor(color);
-        fb.serShape(shape);
+        fillBehavior = new Fill();
+        fillBehavior.setColor(color);
+        fillBehavior.serShape(shape);
     }
 
     public MyShape() {
         color = Color.YELLOW;
         shape = new Rectangle2D.Double();
-        fb = new Fill();
-        fb.setColor(color);
-        fb.serShape(shape);
+        fillBehavior = new Fill();
+        fillBehavior.setColor(color);
+        fillBehavior.serShape(shape);
     }
 
-    public MyShape(Color color, RectangularShape shape, FillBehavior fb) {
+    public MyShape(Color color, RectangularShape shape, FillBehavior fillBehavior) {
         this.color = color;
         this.shape = shape;
-        this.fb = fb;
-        this.fb.serShape(shape);
-        this.fb.setColor(color);
+        this.fillBehavior =fillBehavior;
+        this.fillBehavior.serShape(shape);
+        this.fillBehavior.setColor(color);
     }
 
-    public void setFb(FillBehavior fb) {
-        this.fb = fb;
-        fb.serShape(shape);
-        fb.setColor(color);
+    public void setFillBehavior(FillBehavior fillBehavior) {
+        this.fillBehavior = fillBehavior;
+        fillBehavior.serShape(shape);
+        fillBehavior.setColor(color);
     }
     void draw(Graphics2D g) {
-        fb.draw(g);
-        fb.setColor(color);
-        fb.serShape(shape);
+        fillBehavior.draw(g);
+        fillBehavior.setColor(color);
+        fillBehavior.serShape(shape);
     }
     @Override
     public MyShape clone(){
         MyShape clone=new MyShape();
         clone.shape= (RectangularShape) this.shape.clone();
-        clone.fb=this.fb;
+        clone.fillBehavior=this.fillBehavior;
         clone.color=this.color;
         clone.setShape(clone.shape);
         return clone;

@@ -5,6 +5,7 @@ import org.example.model.Model;
 import org.example.model.MyShape;
 import org.example.model.shape.factory.ShapeType;
 import org.example.model.shape.fill.Fill;
+import org.example.model.shape.fill.FillBehavior;
 import org.example.model.shape.fill.NoFill;
 import org.example.view.MyFrame;
 import org.example.view.MyPanel;
@@ -16,14 +17,14 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 @org.springframework.stereotype.Controller
-public class Controller implements MenuObserver{
+public class Controller implements MenuSubscribe{
     private ActionDraw actionDraw;
     private Model model;
     private MyFrame frame;
     private MyPanel panel;
     private Point2D [] pd;
     private MyShape shape;
-    //private MenuController menuController;
+    private MenuController menuController;
 
    /* public Controller() {
 
@@ -80,5 +81,15 @@ public class Controller implements MenuObserver{
 
     public void draw(Graphics2D g2) {
         model.draw(g2);
+    }
+
+    @Override
+    public void notifyUpdate() {
+        ShapeType selectedShape = menuController.getSelectedShape();
+        Color selectedColor = menuController.getSelectedColor();
+        FillBehavior selectedFill = menuController.getSelectedFill();
+        shape = selectedShape.createShape(selectedColor, selectedFill);
+        actionDraw.setSampleShape(shape);
+
     }
 }
