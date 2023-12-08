@@ -35,15 +35,12 @@ public class MenuController {
         JMenu shapeMenu = createShapeMenu();
         JMenu colorMenu = createColorMenu();
         JMenu fillMenu = createFillMenu();
-        JMenu frameFillMenu = createFillBezRamkiMenu();
         JMenu fillBezZalivki = createFrameBezZalivkiMenu();
-        JMenu frameBezRamki = createFillBezRamkiMenu();
         JMenu undoRedoMenu = createUndoRedoMenu();
         menu.add(shapeMenu);
         menu.add(colorMenu);
         menu.add(fillMenu);
         menu.add(fillBezZalivki);
-        menu.add(frameFillMenu);
         menu.add(undoRedoMenu);
         defaultState();
     }
@@ -52,10 +49,6 @@ public class MenuController {
         selectedShape = ShapeType.RECTANGULAR;
         selectedColor = Color.BLACK;
         selectedFill = new NoFill();
-
-//        selectedShape1 = ShapeType.RECTANGULAR;
-//        selectedColor1 = Color.BLACK;
-//        selectedFill1 = new NoFill();
 
     }
 
@@ -234,82 +227,7 @@ public class MenuController {
         group.add(orange);
         return shapeMenu;
     }
-    private JMenu createFillBezRamkiMenu(){
-        JMenu shapeMenu = new JMenu("Цвет заливки");
-        ButtonGroup group = new ButtonGroup();
-        JRadioButtonMenuItem blue = new JRadioButtonMenuItem("Синий");
-        blue.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                selectedColor = Color.BLUE;
-                selectedFill = new Fill();
-                selectedFill.setColor(selectedColor);
-                MyShape shape = selectedShape.createShape(selectedColor, selectedFill);
-                selectedFill.serShape(shape.getShape());
-                menuObserver.notifyAllSubscribers();
-            }
-        });
-        shapeMenu.add(blue);
-        group.add(blue);
-        JRadioButtonMenuItem green = new JRadioButtonMenuItem("Зеленый");
-        green.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                selectedColor = Color.GREEN;
-                selectedFill = new Fill();
-                selectedFill.setColor(selectedColor);
-                MyShape shape = selectedShape.createShape(selectedColor, selectedFill);
-                selectedFill.serShape(shape.getShape());
-                menuObserver.notifyAllSubscribers();
-            }
-        });
-        shapeMenu.add(green);
-        group.add(green);
-        JRadioButtonMenuItem red = new JRadioButtonMenuItem("Красный");
-        red.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                selectedColor = Color.RED;
-                selectedFill = new Fill();
-                selectedFill.setColor(selectedColor);
-                MyShape shape = selectedShape.createShape(selectedColor, selectedFill);
-                selectedFill.serShape(shape.getShape());
-                menuObserver.notifyAllSubscribers();
-            }
-        });
-        shapeMenu.add(red);
-        group.add(red);
-        JRadioButtonMenuItem yellow = new JRadioButtonMenuItem("Жёлтый");
-        yellow.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                selectedColor = Color.YELLOW;
-                selectedFill = new Fill();
-                selectedFill.setColor(selectedColor);
-                MyShape shape = selectedShape.createShape(selectedColor, selectedFill);
-                selectedFill.serShape(shape.getShape());
-                menuObserver.notifyAllSubscribers();
-            }
-        });
-        shapeMenu.add(yellow);
-        group.add(yellow);
-        JRadioButtonMenuItem cyan = new JRadioButtonMenuItem("Циановый");
-        cyan.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                selectedColor = Color.CYAN;
-                selectedFill = new Fill();
-                selectedFill.setColor(selectedColor);
-                MyShape shape = selectedShape.createShape(selectedColor, selectedFill);
-                selectedFill.serShape(shape.getShape());
-                menuObserver.notifyAllSubscribers();
-            }
-        });
 
-        shapeMenu.add(cyan);
-        group.add(cyan);
-        return shapeMenu;
-    }
     private JMenu createFrameBezZalivkiMenu(){
         JMenu shapeMenu = new JMenu("Цвет рамки");
         ButtonGroup group = new ButtonGroup();
